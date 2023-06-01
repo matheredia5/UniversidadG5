@@ -205,9 +205,33 @@ public class InscripcionData {
         return materias;
       }
       
-     //faltaria el metodo obtenerAlumnosXMateria
-      public List<Alumno> obtenerAlumnosXMateria(int id_materia){
-        return null;
+     public List<Alumno> obtenerAlumnosXMateria(int id_materia){
+          List<Alumno> alumnos = new ArrayList<Alumno>();
+          
+          String sql = "SELECT inscripcion.id_alumno,nombre,apellido FROM inscripcion,alumno WHERE inscripcion.id_alumno = alumno.id_alumno AND inscripcion.id_materia = ?;";
+          
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_materia);
+            ResultSet rs = ps.executeQuery();
+            Alumno alumno;
+            
+            while(rs.next()){
+                alumno = new Alumno();
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumnos.add(alumno);                               
+        }
+            ps.close();            
+            
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener alumnos");
+        }
+          
+        return alumnos;
           
       }
      
