@@ -27,12 +27,12 @@ public class Inscripcion {
     public Inscripcion() {
     }
 
-    //
-    public Inscripcion(Alumno alumSelec, Materia materia, int i) {
-        this.alumSelec = alumSelec;
-        this.materia = materia;
-        this.i = i;
-    }
+//    //
+//    public Inscripcion(Alumno alumSelec, Materia materia, int i) {
+//        this.alumSelec = alumSelec;
+//        this.materia = materia;
+//        this.i = i;
+//    }
 
     public int getIdInscripcion() {
         return idInscripcion;

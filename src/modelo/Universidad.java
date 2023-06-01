@@ -52,8 +52,11 @@ public class Universidad {
 //        Materia mat = new Materia("Ingles III", 2, true);
 //        MateriaData m= new MateriaData();
 //        m.cargarMateria(mat);
-            
-       
+         
+//         Inscripcion insc = new Inscripcion(0, alu, mat);
+//         InscripcionData i = new InscripcionData();         
+//         i.guardarInscripcion(insc);
+//            System.out.println("incripto " + alu);
     }
 }
     

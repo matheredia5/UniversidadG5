@@ -215,13 +215,17 @@ public class InscripcionView extends javax.swing.JInternalFrame {
         if(filaSeleccionada!=-1){
             Alumno alumSelec=(Alumno)jcbAlumnos.getSelectedItem();
             int idMateria=(Integer)modelo.getValueAt(filaSeleccionada, 0);
-           
+            String nombredemateria=(String)modelo.getValueAt(filaSeleccionada, 1);
+            
             Materia materia=new Materia();
             materia.setIdMateria(idMateria);
+            materia.setNombre(nombredemateria);
+           
             
-            Inscripcion insc=new Inscripcion(alumSelec,materia,0);
+            Inscripcion insc=new Inscripcion(0,alumSelec,materia);
+            System.out.println("alumno "+ alumSelec.getNombre() + materia.getNombre() + insc.getAlumno().toString());
             inscData.guardarInscripcion(insc);
-        
+             
             borrarFilas();
         jrbInscriptas.setSelected(false);
         jrbNoInscriptas.setSelected(false);
