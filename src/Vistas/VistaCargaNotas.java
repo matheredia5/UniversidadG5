@@ -5,8 +5,10 @@ import Control.AlumnoData;
 import Control.InscripcionData;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Alumno;
+import modelo.Inscripcion;
 import modelo.Materia;
 
 public class VistaCargaNotas extends javax.swing.JInternalFrame {
@@ -57,6 +59,11 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtNotas);
 
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
 
@@ -109,6 +116,39 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         llenarTabla();
     }//GEN-LAST:event_jcbAlumnosActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada=jtNotas.getSelectedRow();
+        
+        if(filaSeleccionada!=-1){
+            Alumno alumSelec=(Alumno)jcbAlumnos.getSelectedItem();
+            int idMateria=(Integer)modelo.getValueAt(filaSeleccionada, 0);
+            String nombredemateria=(String)modelo.getValueAt(filaSeleccionada, 1);
+            
+            int idAlumno=alumSelec.getIdAlumno();        
+
+            
+            Inscripcion insc=new Inscripcion();
+            insc.setIdAlumno(idAlumno);
+            insc.setIdMateria(idMateria);
+            insc.setNota(WIDTH);
+            
+            inscData.actualizarNota(WIDTH, idAlumno, idMateria);
+             
+            borrarFilas();
+          
+        }else{
+        
+            JOptionPane.showMessageDialog(this,"Usted debe seleccionar una materia");
+            
+        }
+    
+        
+        
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    
     private void cargarAlumnos() {
         List<Alumno> alumnos=aData.listarAlumnos();
         for(Alumno alu:alumnos){
@@ -133,19 +173,33 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
     private void llenarTabla() {
     // Obtener el alumno seleccionado del JComboBox
     Alumno alumnoSeleccionado=(Alumno)jcbAlumnos.getSelectedItem();{
-
+        Inscripcion insc = new Inscripcion();
+        insc.getNota();
+            
     // Limpiar el modelo de la tabla
     modelo.setRowCount(0);
 
-    List<Materia> lista=inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
-            for(Materia m:lista){
+        List<Materia> lista=inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
+            for(Materia i:lista){
             
-                modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAnio()});
+                modelo.addRow(new Object[]{i.getIdMateria(),i.getNombre(),insc.getNota()});
+
+//        List<Inscripcion> lista=inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
+//            for(Inscripcion i:lista){
+//            
+//                modelo.addRow(new Object[]{i.getIdMateria(),i.getMateria(),i.getNota()});
         }
     }
 }
 
-
+    private void borrarFilas(){
+    
+        int filas=modelo.getRowCount()-1;
+        for(int i=filas;i >=0;i--){
+        
+            modelo.removeRow(i);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

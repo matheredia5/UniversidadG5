@@ -56,7 +56,7 @@ public class Universidad {
 //         Inscripcion insc = new Inscripcion(0, alu, mat);
 //         InscripcionData i = new InscripcionData();         
 //         i.guardarInscripcion(insc);
-//            System.out.println("incripto " + alu);
+//         System.out.println("incripto " + alu);
     }
 }
     

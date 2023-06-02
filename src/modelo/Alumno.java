@@ -54,8 +54,8 @@ public class Alumno {
         return idAlumno;
     }
 
-    public void setIdAlumno(int id_alumno) {
-        this.idAlumno = id_alumno;
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
     }
 
     public LocalDate getFechaNac() {

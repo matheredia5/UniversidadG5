@@ -142,7 +142,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
         escritorio.repaint();
-        InscripcionView iv=new InscripcionView();
+        VistaInscripcion iv=new VistaInscripcion();
         iv.setVisible(true);
         escritorio.add(iv);
         escritorio.moveToFront(iv);

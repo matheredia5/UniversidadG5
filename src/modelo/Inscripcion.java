@@ -8,8 +8,8 @@ public class Inscripcion {
     private Alumno alumno;
     private Materia materia;
     //
-    private Alumno alumSelec;
-    private int i;
+//    private Alumno alumSelec;
+//    private int i;
 
     public Inscripcion(int idInscripcion, double nota, Alumno alumno, Materia materia) {
         this.idInscripcion = idInscripcion;
