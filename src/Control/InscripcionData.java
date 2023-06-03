@@ -208,7 +208,7 @@ public class InscripcionData {
      public List<Alumno> obtenerAlumnosXMateria(int id_materia){
           List<Alumno> alumnos = new ArrayList<Alumno>();
           
-          String sql = "SELECT inscripcion.id_alumno,nombre,apellido FROM inscripcion,alumno WHERE inscripcion.id_alumno = alumno.id_alumno AND inscripcion.id_materia = ?;";
+          String sql = "SELECT inscripcion.id_alumno,dni,nombre,apellido FROM inscripcion,alumno WHERE inscripcion.id_alumno = alumno.id_alumno AND inscripcion.id_materia = ?;";
           
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -218,7 +218,8 @@ public class InscripcionData {
             
             while(rs.next()){
                 alumno = new Alumno();
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                alumno.setIdAlumno(rs.getInt("id_alumno"));
+                alumno.setDni(rs.getInt("dni"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setApellido(rs.getString("apellido"));
                 alumnos.add(alumno);                               

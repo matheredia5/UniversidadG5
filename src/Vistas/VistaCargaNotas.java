@@ -14,7 +14,16 @@ import modelo.Materia;
 public class VistaCargaNotas extends javax.swing.JInternalFrame {
     private InscripcionData inscData=new InscripcionData();
     private AlumnoData aData=new AlumnoData();
-    private DefaultTableModel modelo=new DefaultTableModel();
+    private DefaultTableModel modelo=new DefaultTableModel(){
+    
+        public boolean isCellEditable(int row,int colum){
+            if(colum==0||colum==1){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    };
 
     public VistaCargaNotas() {
         initComponents();
@@ -66,6 +75,11 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         });
 
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,6 +162,11 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
     
     private void cargarAlumnos() {
         List<Alumno> alumnos=aData.listarAlumnos();

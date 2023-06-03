@@ -18,7 +18,7 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
     
     public VistaAlumnosMaterias() {
         initComponents();
-//        cargarMaterias();
+        cargarMaterias();
         armarCabecera();
     }
 
@@ -28,7 +28,6 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jtMaterias = new javax.swing.JTable();
-        jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jLabelCargaDeNotas = new javax.swing.JLabel();
         jLabelMaterias = new javax.swing.JLabel();
@@ -47,9 +46,12 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtMaterias);
 
-        jButtonGuardar.setText("Guardar");
-
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("Salir");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jLabelCargaDeNotas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelCargaDeNotas.setText("LISTADO DE ALUMNOS POR MATERIA");
@@ -69,10 +71,7 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonGuardar)
-                        .addGap(45, 45, 45)
-                        .addComponent(jButtonCancelar))
+                    .addComponent(jButtonCancelar)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
@@ -98,9 +97,7 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonCancelar))
+                .addComponent(jButtonCancelar)
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
@@ -110,14 +107,19 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
     private void jcbMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriasActionPerformed
         // TODO add your handling code here:
         borrarFilas();
+        llenarTabla();
         
     }//GEN-LAST:event_jcbMateriasActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelCargaDeNotas;
     private javax.swing.JLabel jLabelMaterias;
     private javax.swing.JScrollPane jScrollPane1;
@@ -126,8 +128,8 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     
     private void cargarMaterias() {
-        List<Materia> materias=mData.listarMaterias();
-        for(Materia mat:materias){
+        List<Materia> materias = mData.listarMaterias();
+        for (Materia mat : materias) {
             jcbMaterias.addItem(mat);
         }
         
