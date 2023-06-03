@@ -67,14 +67,14 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtNotas);
 
-        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setText("Actualizar Nota");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
             }
         });
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setText("Salir");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
@@ -132,39 +132,30 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbAlumnosActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
-        int filaSeleccionada=jtNotas.getSelectedRow();
-        
-        if(filaSeleccionada!=-1){
-            Alumno alumSelec=(Alumno)jcbAlumnos.getSelectedItem();
-            int idMateria=(Integer)modelo.getValueAt(filaSeleccionada, 0);
-            String nombredemateria=(String)modelo.getValueAt(filaSeleccionada, 1);
-            
-            int idAlumno=alumSelec.getIdAlumno();        
-
-            
-            Inscripcion insc=new Inscripcion();
-            insc.setIdAlumno(idAlumno);
-            insc.setIdMateria(idMateria);
-            insc.setNota(WIDTH);
-            
-            inscData.actualizarNota(WIDTH, idAlumno, idMateria);
-             
-            borrarFilas();
-          
-        }else{
-        
-            JOptionPane.showMessageDialog(this,"Usted debe seleccionar una materia");
-            
-        }
+        Alumno alumnoSeleccionado = (Alumno) jcbAlumnos.getSelectedItem();
+        int filaSeleccionada = jtNotas.getSelectedRow();
     
-        
-        
-        
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "Selecciona una fila de la tabla.");
+        return;
+    }
+  
+    int idMateria = (int) jtNotas.getValueAt(filaSeleccionada, 0);
+    double nuevaNota;
+    
+    try {
+        nuevaNota = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva nota:"));
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Ingrese una nota válida.");
+        return;
+    }
+    
+    inscData.actualizarNota(alumnoSeleccionado.getIdAlumno(), idMateria, nuevaNota);
+    borrarFilas();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
+
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
     
@@ -190,29 +181,23 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
     }
     
     private void llenarTabla() {
-    // Obtener el alumno seleccionado del JComboBox
-    Alumno alumnoSeleccionado=(Alumno)jcbAlumnos.getSelectedItem();{
-        Inscripcion insc = new Inscripcion();
-        insc.getNota();
-            
-    // Limpiar el modelo de la tabla
+    Alumno alumnoSeleccionado = (Alumno) jcbAlumnos.getSelectedItem();
+
     modelo.setRowCount(0);
 
-        List<Materia> lista=inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
-            for(Materia i:lista){
-            
-                modelo.addRow(new Object[]{i.getIdMateria(),i.getNombre(),insc.getNota()});
-
-//        List<Inscripcion> lista=inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
-//            for(Inscripcion i:lista){
-//            
-//                modelo.addRow(new Object[]{i.getIdMateria(),i.getMateria(),i.getNota()});
+    List<Materia> lista = inscData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
+    for (Materia i : lista) {
+        Inscripcion insc = inscData.obtenerInscripcionPorMateriaYAlumno(i.getIdMateria(), alumnoSeleccionado.getIdAlumno());
+        if (insc != null) {
+            modelo.addRow(new Object[]{i.getIdMateria(), i.getNombre(), insc.getNota()});
+        } else {
+            modelo.addRow(new Object[]{i.getIdMateria(), i.getNombre(), "Sin nota"});
         }
     }
 }
 
-    private void borrarFilas(){
     
+    private void borrarFilas(){
         int filas=modelo.getRowCount()-1;
         for(int i=filas;i >=0;i--){
         

@@ -93,9 +93,9 @@ public class AlumnoData {
                
 
             } else {
-                JOptionPane.showMessageDialog(null, "No existe el alumno");
+//                JOptionPane.showMessageDialog(null, "No existe el alumno");
             }
-            JOptionPane.showMessageDialog(null, "Alumno encontrado");
+//            JOptionPane.showMessageDialog(null, "Alumno encontrado");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno "+ex.getMessage());

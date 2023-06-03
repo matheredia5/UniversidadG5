@@ -178,7 +178,7 @@ public class InscripcionData {
        
   }
      
-      public List<Materia> obtenerMateriasCursadas(int id_materia){
+    public List<Materia> obtenerMateriasCursadas(int id_materia){
         List<Materia> materias = new ArrayList<Materia>();
         
         try {
@@ -236,4 +236,34 @@ public class InscripcionData {
           
       }
      
+    public Inscripcion obtenerInscripcionPorMateriaYAlumno(int id_materia, int id_alumno) {
+    Inscripcion inscripcion = null;
+    
+    try {
+        String sql = "SELECT * FROM inscripcion WHERE id_materia = ? AND id_alumno = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id_materia);
+        ps.setInt(2, id_alumno);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            inscripcion = new Inscripcion();
+            inscripcion.setIdInscripcion(rs.getInt("id_inscripto"));
+            inscripcion.setNota(rs.getDouble("nota"));
+            
+            Alumno alumno = aluData.buscarAlumno(rs.getInt("id_alumno"));
+            inscripcion.setAlumno(alumno);
+            
+            Materia materia = matData.buscarMateria(rs.getInt("id_materia"));
+            inscripcion.setMateria(materia);
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener la inscripción: " + ex.getMessage());
+    }
+    
+    return inscripcion;
+}
+ 
 }

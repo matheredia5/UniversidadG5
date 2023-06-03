@@ -84,9 +84,9 @@ public class MateriaData {
                
 
             } else {
-                JOptionPane.showMessageDialog(null, "No existe la materia.");
+//                JOptionPane.showMessageDialog(null, "No existe la materia.");
             }
-            JOptionPane.showMessageDialog(null, "Materia encontrada: " + materia.getNombre() + ", ID de materia: " + materia.getIdMateria());
+//            JOptionPane.showMessageDialog(null, "Materia encontrada: " + materia.getNombre() + ", ID de materia: " + materia.getIdMateria());
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Materia. "+ex.getMessage());
