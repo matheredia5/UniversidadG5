@@ -14,7 +14,16 @@ public class VistaAlumnosMaterias extends javax.swing.JInternalFrame {
     
     private InscripcionData inscData=new InscripcionData();
     private MateriaData mData=new MateriaData();
-    private DefaultTableModel modelo=new DefaultTableModel();
+    private DefaultTableModel modelo=new DefaultTableModel(){
+    
+        public boolean isCellEditable(int row,int colum){
+            if(colum==0 ||colum==1 || colum==2 || colum==3){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    };
     
     public VistaAlumnosMaterias() {
         initComponents();

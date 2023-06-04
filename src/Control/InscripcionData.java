@@ -166,7 +166,7 @@ public class InscripcionData {
                 materia = new Materia();
                 materia.setIdMateria(resultSet.getInt("id_materia"));
                 materia.setNombre(resultSet.getString("nombre"));
-                materia.setAnio(resultSet.getInt("año"));
+                materia.setAño(resultSet.getInt("año"));
                 materias.add(materia);                               
         }
             ps.close();            
@@ -194,7 +194,7 @@ public class InscripcionData {
                 materia = new Materia();
                 materia.setIdMateria(rs.getInt("id_materia"));
                 materia.setNombre(rs.getString("nombre"));
-                materia.setAnio(rs.getInt("año"));
+                materia.setAño(rs.getInt("año"));
                 materias.add(materia);                               
         }
             ps.close();            

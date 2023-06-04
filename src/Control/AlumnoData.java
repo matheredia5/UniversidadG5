@@ -73,7 +73,26 @@ public class AlumnoData {
 
     }
     
-     public Alumno buscarAlumno(int id_alumno) {
+    public void actualizarAlumnoPorDni(Alumno alumno) {
+    try {
+        String sql = "UPDATE alumno SET dni=?, apellido=?, nombre=?, fechaNacimiento=?, estado=? WHERE dni=?";
+        
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, alumno.getDni());
+        ps.setString(2, alumno.getApellido());
+        ps.setString(3, alumno.getNombre());            
+        ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
+        ps.setBoolean(5, alumno.isEstado());
+        ps.setInt(6, alumno.getDni());
+        ps.executeUpdate();
+        
+        ps.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+    
+    public Alumno buscarAlumno(int id_alumno) {
         Alumno alumno = null;
         String sql = "SELECT  dni, apellido, nombre, fechaNacimiento FROM alumno WHERE id_alumno = ? AND estado = 1";
         PreparedStatement ps = null;
@@ -106,8 +125,8 @@ public class AlumnoData {
     
     public Alumno buscarAlumnoPorDni(int dni){
         Alumno alu= null;
-       String query = "SELECT nombre, apellido, fechaNacimiento, estado FROM alumno WHERE dni=?";
-        PreparedStatement ps;
+       String query = "SELECT  apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni=? AND estado=1";
+        PreparedStatement ps = null ;
         try{
             ps=con.prepareStatement (query);
             ps.setInt(1, dni);
@@ -116,11 +135,11 @@ public class AlumnoData {
             
             if (rs.next()){
                 alu=new Alumno();                
-                alu.setDni(rs.getInt("dni"));
-                alu.setNombre(rs.getString("nombre"));
+                alu.setIdAlumno(dni);
                 alu.setApellido(rs.getString("apellido"));
-                alu.setFechaNac(rs.getDate("fechaNac").toLocalDate());
-                alu.setEstado(rs.getBoolean("Activo"));
+                alu.setNombre(rs.getString("nombre"));                
+                alu.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                alu.setEstado(true);
                 
                 }else
                     System.out.println("Alumno inexistente");
@@ -128,7 +147,7 @@ public class AlumnoData {
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        return null;
+        return alu;
     } 
     
     public void eliminarAlumno(int id_alumno) {
@@ -145,6 +164,21 @@ public class AlumnoData {
         Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
     }
 }    
+    
+    public void eliminarAlumnoPorDni(int dni) {
+    try {
+        String sql = "UPDATE alumno SET estado = 0 WHERE dni = ?;";
+        
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, dni);
+        ps.executeUpdate();
+        
+        ps.close();
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
 
     public List<Alumno> listarAlumnos(){
               List<Alumno> alumnos = new ArrayList<>();    

@@ -48,13 +48,14 @@ public class MateriaData {
     
      public void actualizarMateria(Materia materia){
         try {
-            String sql= "UPDATE materia SET id_materia=?, nombre=?, año=?, estado=? WHERE 1";
+            String sql= "UPDATE materia SET  nombre=?, año=?, estado=? WHERE id_materia=?";
             
             PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, materia.getIdMateria());
-            ps.setString(2, materia.getNombre());
-            ps.setInt(3, materia.getAnio());
-            ps.setBoolean(4, materia.isEstado());          
+            
+            ps.setString(1, materia.getNombre());
+            ps.setInt(2, materia.getAnio());
+            ps.setBoolean(3, materia.isEstado()); 
+            ps.setInt(4, materia.getIdMateria());
             ps.executeUpdate();
             
             ps.close();
@@ -79,7 +80,7 @@ public class MateriaData {
                 materia=new Materia();
                 materia.setIdMateria(id_materia);
                 materia.setNombre(rs.getString("nombre"));
-                materia.setAnio(rs.getInt("año"));
+                materia.setAño(rs.getInt("año"));
                 materia.setEstado(true);
                
 
@@ -129,7 +130,7 @@ public class MateriaData {
                 Materia mat = new Materia();
                 mat.setIdMateria(rs.getInt("id_materia"));               
                 mat.setNombre(rs.getString("nombre"));
-                mat.setAnio(rs.getInt("año"));
+                mat.setAño(rs.getInt("año"));
                 mat.setEstado(rs.getBoolean("estado"));
                 materias.add(mat);
                 

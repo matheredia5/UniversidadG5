@@ -17,7 +17,7 @@ public class VistaCargaNotas extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo=new DefaultTableModel(){
     
         public boolean isCellEditable(int row,int colum){
-            if(colum==0||colum==1){
+            if(colum==0||colum==1||colum==2){
                 return false;
             }else{
                 return true;

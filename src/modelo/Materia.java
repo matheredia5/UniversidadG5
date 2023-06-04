@@ -3,21 +3,21 @@ package modelo;
 
 public class Materia {
 
-    private int idMateria;
+    private int id_materia;
     private String nombre;
-    private int anio;
+    private int año;
     private boolean estado;
 
-    public Materia(int idMateria, String nombre, int anio, boolean estado) {
-        this.idMateria = idMateria;
+    public Materia(int id_materia, String nombre, int año, boolean estado) {
+        this.id_materia = id_materia;
         this.nombre = nombre;
-        this.anio = anio;
+        this.año = año;
         this.estado = estado;
     }
 
-    public Materia(String nombre, int anio, boolean estado) {
+    public Materia(String nombre, int año, boolean estado) {
         this.nombre = nombre;
-        this.anio = anio;
+        this.año = año;
         this.estado = estado;
     }
 
@@ -25,11 +25,11 @@ public class Materia {
     }
 
     public int getIdMateria() {
-        return idMateria;
+        return id_materia;
     }
 
-    public void setIdMateria(int idMateria) {
-        this.idMateria = idMateria;
+    public void setIdMateria(int id_materia) {
+        this.id_materia = id_materia;
     }
 
     public String getNombre() {
@@ -41,11 +41,11 @@ public class Materia {
     }
 
     public int getAnio() {
-        return anio;
+        return año;
     }
 
-    public void setAnio(int anio) {
-        this.anio = anio;
+    public void setAño(int año) {
+        this.año = año;
     }
 
     public boolean isEstado() {
@@ -58,7 +58,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return nombre + "," + anio + "," ;
+        return nombre + " , " + año + "." ;
     }
 
     
